@@ -1,44 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weather Forecast App</title>
-</head>
-<body>
-  <header>
-    <form>
-    <input tpye="search" placeholder="Enter a city..." required />
-    <input type=" submit" value="search" />
-    </form>
-  </header>
-  <main>
-    <div>
-  <h1>
-    Brakpan 
-  </h1>
-  <p>
-    Tuesday 15:45,Partly Cloudy
-    <br />
-    Humidity: 32%, Wind: 23kw/h
-  </p>
-    </div>
-  <div> 🌤 30°C </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdn.jsdeliver.net/npm/axios@1.2/dist/axxios.min.js"></script>
+    <title>My weather application</title>
+    <style>
+
+body {
+    background-color: #f9f7fe;
+    font-family: "roboto", sans-serif;
     
-</main>
+}
+.weather-app {
+    background-color: white; 
+    max-width: 600px;
+    margin: 45px auto;
+    box-shadow: 0 30px 50px hwb(65, 50, 100,0.08);
+    border-radius: 16px;
+    padding: 30px;
 
-  <footer>
-    This project was coded by phindy.S
-    <a href="https://github.com/" target="_blank"> phindy.S</a>
-    <a href="https://github.com/PhindyS/the-weather-forecast" target="_blank"
-    ></a> is open-sourced on Github</a
-    > and 
-    <a href="https://app.netlify.com/teams/phindys/overview" target="_blank"
+}
 
-  </footer>
-  <script src="app.js"></script>
+a{
+  color: #885df1;
+}
 
+header{
+  border-bottom: 1px solid #f9f7fe;
+  padding: 0 0 30px 0;
+
+}
+
+.search-form-input{
+  background-color: #f9f7fe;
+  border: none;
+  border-radius: 6px;
+  width: 80%;
+  font-size: 16px;
+  padding: 15px 20px;
+}
+
+.search-form-button{
+  background-color: #885df1;
+  padding: 15px 30px;
+  border: none;
+  font-size: 16px;
+  margin-left: 5px;
+  border-radius: 6px;
+  color: whitesmoke;
+}
+
+main{
+  padding: 30px 0;
+}
+
+.weather-app-city{
+  margin: 0;
+  font-size: 38px;
+  line-height: 48px;
+}
+
+.weather-app-details{
+  font-size: 16px;
+  color: rgb(39, 33, 66, 0.4);
+  line-height: 24px;
+  font-weight: 500,
+}
+
+.weather-app-details strong{
+    color: #f65282;
+}
+ .weather-app-temperature-container{
+  display: flex;
+ }
+
+ .weather-app-icon{
+  font-size: 88px;
+  margin-top: 88px;
+ }
+
+ .weather-app-temperature{
+  font-size: 88px;
+  margin-left: 88px;
+  font-weight: bold;
+ 
+}
+
+.weather-app-unit {
+  margin-top: 6px;
+  font-size: 28px;
+}
+
+.weather-forecast {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.weather-forecast-date{
+  text-align: center;
+  color: rgb(39, 33, 66, 0.4);
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+
+.weather-forecast-icon{
+  width: 88;
+  height: 88px;
+  display: block;
+  margin: 0 auto;
+}
+
+.weather-forecast-temperatures{
+  text-align: center;
+  color: #f65282;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.weather-forecast-temperature{
+  padding: 0 10px;
+
+}
+footer{
+  border-top: 1px solid #f9f7fe;
+  padding: 30px 0 0 0 ;
+  text-align: center;
+  font-size: 14px;
+  color:rgba(0, 0, 0, 0.6);
+}
+
+
+
+      </style>
+  </head>
+  <body>
+    <div class="weather-app">
+      <header>
+        <form id="search-form" id="search-form">
+          <input
+            type="search"
+            placeholder="Enter a city.."
+            required
+            id="search-input"
+            class="search-form-input"
+          />
+          <input type="submit" value="Search" class="search-button" />
+        </form>
+      </header>
+      <main>
+        <div class="weather-app-data">
+          <div>
+            <h1 class="weather-app-city" id="city"></h1>
+            <p class="weather-app-details">
+              <span id="time"></span> 
+              <span id="description"></span>
+              <br />
+            <h1>Paris</h1>
+            <p> Tuesday 14:45 </p> 
+        
+           humidity: 66% <strong id="humidity"></strong> Wind: 3.13km/h<br />
+            <strong id="wind-speed"></strong>
+            </p>
+          </div>
+          <div class="weather-app-temperature-container">
+            <div id="icon">☀️</div>
+            <div class="weather-app-temperature" id="temperature"></div>
+            <div class="weather-app-unit"> 21°C </div>
+          </div>
+        </div>
+      </main>
+      
+      <footer>
+        
+          This project was coded by
+          <a href="#" target="_blank">phindyS</a> and is phindyS
+          <a href="" target="_blank"> on GitHub</a> and
+          <a href="#" target="_blank">hosted on Netlify</a>
+        
+      </footer>
+    </div>
+    <script>
+     function refreshWeather(response) {
+  let temperatureElement = document.querySelector("#temperature");
+  let temperature = response.data.temperature.current;
+  let cityElement = document.querySelector("#city");
+  let descriptionElement = document.querySelector("#description");
+  let humidityElement = document.querySelector("#humidity");
+  let windSpeedElement = document.querySelector("#wind-speed");
+  let timeElement = document.querySelector("#time");
+  let date = new Date(response.data.time * 1000);
+  let iconElement = document.querySelector("#icon");
+
+  cityElement.innerHTML = response.data.city;
+  timeElement.innerHTML = formatDate(date);
+  descriptionElement.innerHTML = response.data.condition.description;
+  humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
+  windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
+  temperatureElement.innerHTML = Math.round(temperature);
+  iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
+
+getForecast(response.data.city);
+
+}
+
+
+
+function formatDate(date) {
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day} ${hours}:${minutes}`;
+}
+
+function searchCity(city) {
+  let apiKey = "t07551b4ba8c7od7a2bef3297cafb778";
+  let apiUrl ='https://api.shecodes.io/weather/v1/current`?query=${city}&key=${apiKey}&units=metric';
+  axios.get(apiUrl).then(refreshWeather);
+}
+
+function handleSearchSubmit(event) {
+  event.preventDefault();
+  let searchInput = document.querySelector("#search-form-input");
+
+  searchCity(searchInput.value);
+}
+
+function formatday(timestamp) {
+  let date =new date(timestamp*1000);
+  let days = ["Sun", "Mon","Tue", "Wed","Thu", "Fri", "Sat"];
+
+  return days[date.getDay()];
+}
+
+function getForecast(city) {
+  let apiKey = "t07551b4ba8c7od7a2bef3297cafb778";
+  let apiUrl= 'https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric';
+  axios(apiUrl).then(displayforecast);
+}
+
+function displayforecast(response) {
+  let forecastHTML= "";
+
+  response.data.daily.forEach(function (day, index ) {
+    if (index <5) {
+      forecastHTML=
+        forecastHTML+
+        
+        <div class="weather-forecast-day">
+          <div class="weather-forecast-date">${formatday(day.time)}</div>
+
+          <img src ="${day.condition.incon_url}" class="weather-forecast-icon" />
+          <div class="weather-forecast-temperatures">
+            <div class="weather-forecast-temperatures">
+              <strong>${Math.round(day.temperature.maximum)}º</strong>
+              </div>
+              <div class="weather-forecast-temperature">${Math.round(day.temperature.minimum)}º</div>
+              </div>
+              </div>
+              '';
+            }
+          });
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML =forecastHTML
   
-</body>
-</html>`
+}
+
+let searchFormElement = document.querySelector("#search-form");
+searchFormElement.addEventListener("submit", handleSearchSubmit);
+
+searchCity("Paris");
+    
+    
+    </script>
+
+  </body>
+</html>
